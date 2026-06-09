@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Dados</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>📊 Dashboard</h1>
+            </div>
+            <nav class="menu">
+                <a href="#" class="menu-item active" onclick="showSection('overview')">
+                    <span class="icon">📈</span> Visão Geral
+                </a>
+                <a href="#" class="menu-item" onclick="showSection('analytics')">
+                    <span class="icon">📊</span> Análises
+                </a>
+                <a href="#" class="menu-item" onclick="showSection('reports')">
+                    <span class="icon">📋</span> Relatórios
+                </a>
+                <a href="#" class="menu-item" onclick="showSection('settings')">
+                    <span class="icon">⚙️</span> Configurações
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <h2>Bem-vindo ao Dashboard</h2>
+                    <p class="subtitle">Acompanhe seus dados em tempo real</p>
+                </div>
+                <div class="header-right">
+                    <input type="date" id="dateFilter" class="date-filter">
+                    <button class="btn-export">📥 Exportar</button>
+                </div>
+            </header>
+
+            <!-- Overview Section -->
+            <section id="overview" class="section">
+                <!-- KPI Cards -->
+                <div class="kpi-container">
+                    <div class="kpi-card">
+                        <div class="kpi-icon">👥</div>
+                        <div class="kpi-content">
+                            <h3>Usuários</h3>
+                            <p class="kpi-value">12,547</p>
+                            <span class="kpi-change positive">+12.5%</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon">💰</div>
+                        <div class="kpi-content">
+                            <h3>Receita</h3>
+                            <p class="kpi-value">R$ 125,480</p>
+                            <span class="kpi-change positive">+8.2%</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon">📦</div>
+                        <div class="kpi-content">
+                            <h3>Pedidos</h3>
+                            <p class="kpi-value">3,842</p>
+                            <span class="kpi-change negative">-2.4%</span>
+                        </div>
+                    </div>
+
+                    <div class="kpi-card">
+                        <div class="kpi-icon">⭐</div>
+                        <div class="kpi-content">
+                            <h3>Satisfação</h3>
+                            <p class="kpi-value">4.8/5</p>
+                            <span class="kpi-change positive">+0.3%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <h3>Vendas Mensais</h3>
+                        <canvas id="salesChart"></canvas>
+                    </div>
+
+                    <div class="chart-box">
+                        <h3>Distribuição de Categorias</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Table -->
+                <div class="table-box">
+                    <h3>Últimas Transações</h3>
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Cliente</th>
+                                <th>Data</th>
+                                <th>Valor</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>#001</td>
+                                <td>João Silva</td>
+                                <td>09/06/2026</td>
+                                <td>R$ 1,250.00</td>
+                                <td><span class="badge success">Concluído</span></td>
+                            </tr>
+                            <tr>
+                                <td>#002</td>
+                                <td>Maria Santos</td>
+                                <td>08/06/2026</td>
+                                <td>R$ 850.50</td>
+                                <td><span class="badge success">Concluído</span></td>
+                            </tr>
+                            <tr>
+                                <td>#003</td>
+                                <td>Pedro Costa</td>
+                                <td>08/06/2026</td>
+                                <td>R$ 2,100.00</td>
+                                <td><span class="badge warning">Pendente</span></td>
+                            </tr>
+                            <tr>
+                                <td>#004</td>
+                                <td>Ana Oliveira</td>
+                                <td>07/06/2026</td>
+                                <td>R$ 575.25</td>
+                                <td><span class="badge success">Concluído</span></td>
+                            </tr>
+                            <tr>
+                                <td>#005</td>
+                                <td>Carlos Ferreira</td>
+                                <td>07/06/2026</td>
+                                <td>R$ 3,250.00</td>
+                                <td><span class="badge danger">Cancelado</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Analytics Section -->
+            <section id="analytics" class="section" style="display: none;">
+                <div class="analytics-grid">
+                    <div class="chart-box">
+                        <h3>Crescimento Anual</h3>
+                        <canvas id="growthChart"></canvas>
+                    </div>
+                    <div class="chart-box">
+                        <h3>Performance por Região</h3>
+                        <canvas id="regionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports" class="section" style="display: none;">
+                <div class="reports-list">
+                    <div class="report-card">
+                        <h3>Relatório Mensal</h3>
+                        <p>Resumo de vendas, clientes e receita do mês</p>
+                        <button class="btn-primary">Gerar Relatório</button>
+                    </div>
+                    <div class="report-card">
+                        <h3>Análise de Clientes</h3>
+                        <p>Perfil, comportamento e satisfação dos clientes</p>
+                        <button class="btn-primary">Gerar Relatório</button>
+                    </div>
+                    <div class="report-card">
+                        <h3>Previsão de Vendas</h3>
+                        <p>Tendências e projeções para próximos meses</p>
+                        <button class="btn-primary">Gerar Relatório</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Settings Section -->
+            <section id="settings" class="section" style="display: none;">
+                <div class="settings-box">
+                    <h3>Preferências do Dashboard</h3>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" checked> Mostrar notificações
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" checked> Modo escuro
+                        </label>
+                    </div>
+                    <div class="setting-item">
+                        <label>
+                            <input type="checkbox" checked> Atualizar automaticamente
+                        </label>
+                    </div>
+                    <button class="btn-primary" style="margin-top: 20px;">Salvar Alterações</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
